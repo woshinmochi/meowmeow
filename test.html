@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Reasons Why I Love You 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Retro Font */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap'); /* Handwritten Love Font */
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff00ff, #ffcc00, #00ffff);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 80%;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Pacifico', cursive;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Press Start 2P', cursive;
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #e84118;
+            transform: scale(1.05);
+        }
+
+        #reason {
+            margin-top: 20px;
+            font-size: 24px;
+            max-width: 80%;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Pacifico', cursive;
+            color: #333;
+        }
+
+        #video-container {
+            display: none;
+            margin-top: 20px;
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti"></script>
+</head>
+<body>
+
+    <h1>💛 100 Reasons Why I Love You 💛</h1>
+    <p id="reason">Click the button to see a reason! 😍</p>
+    <button onclick="showReason()">💘 Click Me 💘</button>
+
+    <audio id="gunshot-sound" src="https://www.soundjay.com/button/gunshot-01.wav" preload="auto"></audio>
+
+    <div id="video-container">
+        <iframe id="nyan-video" width="560" height="315" src="https://www.youtube.com/embed/jIQ6UV2onyI?enablejsapi=1&autoplay=0" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+    </div>
+
+    <script>
+        const reasons = [
+            "You make me smile every day 😊",
+            "I love the way you laugh 😂",
+            "You always support me ❤️",
+            "You're my safe place 🏡",
+            "You're incredibly kind and caring 💕",
+            "You’re my Bart to my Lisa 💛💛",
+            "You put up with my nonsense 🤪",
+            "You make every moment special ✨",
+            "You’re the best thing that ever happened to me 🥰",
+            "Your hugs feel like home 🤗",
+            // Add 90 more reasons here
+        ];
+        let index = 0;
+        let videoStarted = false;
+
+        function showReason() {
+            if (index < reasons.length) {
+                document.getElementById("reason").innerText = reasons[index];
+                index++;
+            } else {
+                document.getElementById("reason").innerText = "I could go on forever, but just know I love you endlessly! 💖";
+            }
+
+            // Play gunshot sound
+            document.getElementById("gunshot-sound").play();
+
+            // Screen flash effect
+            document.body.style.backgroundColor = 'white';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '';
+            }, 100);
+
+            // Confetti blast
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { x: 0.5, y: 0.5 }
+            });
+
+            // Play Nyan Cat video
+            if (!videoStarted) {
+                document.getElementById("video-container").style.display = "block";
+                let video = document.getElementById("nyan-video").contentWindow;
+                video.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                videoStarted = true;
+            }
+        }
+    </script>
+</body>
+</html>
